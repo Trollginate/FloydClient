@@ -56,6 +56,7 @@ public final class NavigatorMainScreen extends NavigatorScreen
 		
 		Navigator navigator = WurstClient.INSTANCE.getNavigator();
 		navigator.copyNavigatorList(navigatorDisplayList);
+		navigatorDisplayList.clear();
 	}
 	
 	@Override
