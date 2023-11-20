@@ -9,6 +9,10 @@ package net.wurstclient;
 
 import net.fabricmc.api.ModInitializer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public final class WurstInitializer implements ModInitializer
 {
 	private static boolean initialized;
@@ -23,8 +27,18 @@ public final class WurstInitializer implements ModInitializer
 		if(initialized)
 			throw new RuntimeException(
 				"WurstInitializer.onInitialize() ran twice!");
-		
-		WurstClient.INSTANCE.initialize();
+
+		try {
+			WurstClient.INSTANCE.initialize();
+		} catch (UnsupportedAudioFileException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (LineUnavailableException e) {
+			throw new RuntimeException(e);
+		}
 		initialized = true;
+
+
 	}
 }

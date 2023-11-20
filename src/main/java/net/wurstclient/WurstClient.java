@@ -7,13 +7,23 @@
  */
 package net.wurstclient;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -50,8 +60,9 @@ import net.wurstclient.update.ProblematicResourcePackDetector;
 import net.wurstclient.update.WurstUpdater;
 import net.wurstclient.util.json.JsonException;
 
-public enum WurstClient
-{
+import javax.sound.sampled.*;
+
+public enum WurstClient implements LineListener {
 	INSTANCE;
 	
 	public static MinecraftClient MC;
@@ -83,9 +94,13 @@ public enum WurstClient
 	private Path wurstFolder;
 	
 	private KeyBinding zoomKey;
-	
-	public void initialize()
-	{
+
+	public static final Identifier NIG_ID = new Identifier("wurst:nig");
+	public static SoundEvent NIG_EVENT = SoundEvent.of(NIG_ID);
+	public static final Identifier YUP_ID = new Identifier("wurst:yup");
+	public static SoundEvent YUP_EVENT = SoundEvent.of(YUP_ID);
+
+	public void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		System.out.println("Starting Wurst Client...");
 		
 		MC = MinecraftClient.getInstance();
@@ -155,6 +170,31 @@ public enum WurstClient
 		
 		analytics.trackPageView("/mc" + MC_VERSION + "/v" + VERSION,
 			"Wurst " + VERSION + " MC" + MC_VERSION);
+
+		// From here on I added random shit
+
+		Registry.register(Registries.SOUND_EVENT, WurstClient.NIG_ID, NIG_EVENT);
+		Registry.register(Registries.SOUND_EVENT, WurstClient.YUP_ID, YUP_EVENT);
+
+
+		// Playing Epic NCS Music
+
+		File f = new File(MinecraftClient.getInstance().getResourcePackDir().toString() + "/yup.mp3");
+		if(!f.isFile()) {
+			URLConnection connection = new URL("https://github.com/C-R-Y-S-T-A-L/sounds/raw/main/yup.mp3").openConnection();
+			InputStream is = connection.getInputStream();
+
+			OutputStream outstream = new FileOutputStream(new File(MinecraftClient.getInstance().getResourcePackDir().toString() + "/yup.mp3"));
+
+			byte[] buffer = new byte[4096];
+			int length;
+			while ((length = is.read(buffer)) > 0) {
+				outstream.write(buffer, 0, length);
+			}
+			outstream.close();
+		}
+
+
 	}
 	
 	private Path createWurstFolder()
@@ -341,5 +381,10 @@ public enum WurstClient
 	public AltManager getAltManager()
 	{
 		return altManager;
+	}
+
+	@Override
+	public void update(LineEvent event) {
+
 	}
 }

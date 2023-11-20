@@ -61,7 +61,8 @@
     "TextVisitFactoryMixin",
     "TitleScreenMixin",
     "WorldMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "SheepShearMixin"
   ],
   "injectors": {
     "defaultRequire": 1
