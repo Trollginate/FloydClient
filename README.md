@@ -1,4 +1,4 @@
-# Wurst Client v7
+# Floyd Client v1
 
 ## Downloads (for users)
 
