@@ -8,7 +8,7 @@
 package net.wurstclient.keybinds;
 
 import org.lwjgl.glfw.GLFW;
-
+import java.util.Random;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.InputUtil;
 import net.wurstclient.WurstClient;
@@ -75,6 +75,12 @@ public final class KeybindProcessor implements KeyPressListener
 			cmdProcessor.process(cmd);
 		else
 		{
+			Random rand = new Random();
+			int n = rand.nextInt(5);
+			if (n == 2){
+				ChatUtils.error("error happened");
+				return;
+			}
 			Hack hack = hax.getHackByName(cmd);
 			
 			if(hack == null)
@@ -82,7 +88,8 @@ public final class KeybindProcessor implements KeyPressListener
 				cmdProcessor.process(cmd);
 				return;
 			}
-			
+
+
 			if(!hack.isEnabled() && hax.tooManyHaxHack.isEnabled()
 				&& hax.tooManyHaxHack.isBlocked(hack))
 			{
