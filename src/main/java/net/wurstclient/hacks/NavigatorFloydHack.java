@@ -17,9 +17,9 @@ import net.wurstclient.navigator.NavigatorMainScreen;
 @DontBlock
 @SearchTags({"ClickGUI", "click gui", "SearchGUI", "search gui", "HackMenu",
 	"hack menu"})
-public final class NavigatorHack extends Hack
+public final class NavigatorFloydHack extends Hack
 {
-	public NavigatorHack()
+	public NavigatorFloydHack()
 	{
 		super("Navigator");
 	}

@@ -33,6 +33,7 @@ public final class HackList implements UpdateListener
 	public final AnchorAuraHack anchorAuraHack = new AnchorAuraHack();
 	public final AntiAfkHack antiAfkHack = new AntiAfkHack();
 	public final AntiBlindHack antiBlindHack = new AntiBlindHack();
+	public final AntiBreatheFloydHack antiBreatheFloydHack = new AntiBreatheFloydHack();
 	public final AntiCactusHack antiCactusHack = new AntiCactusHack();
 	public final AntiEntityPushHack antiEntityPushHack =
 		new AntiEntityPushHack();
@@ -128,7 +129,7 @@ public final class HackList implements UpdateListener
 	public final MultiAuraHack multiAuraHack = new MultiAuraHack();
 	public final NameProtectHack nameProtectHack = new NameProtectHack();
 	public final NameTagsHack nameTagsHack = new NameTagsHack();
-	public final NavigatorHack navigatorHack = new NavigatorHack();
+	public final NavigatorFloydHack navigatorFloydHack = new NavigatorFloydHack();
 	public final NewChunksHack newChunksHack = new NewChunksHack();
 	public final NoBackgroundHack noBackgroundHack = new NoBackgroundHack();
 	public final NoClipHack noClipHack = new NoClipHack();
@@ -200,7 +201,7 @@ public final class HackList implements UpdateListener
 		{
 			for(Field field : HackList.class.getDeclaredFields())
 			{
-				if(!field.getName().endsWith("Hack"))
+				if(!field.getName().endsWith("FloydHack"))
 					continue;
 				
 				Hack hack = (Hack)field.get(this);
