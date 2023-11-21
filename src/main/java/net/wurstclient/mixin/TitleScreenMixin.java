@@ -9,6 +9,7 @@ package net.wurstclient.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,6 +27,7 @@ import net.wurstclient.WurstClient;
 import net.wurstclient.altmanager.screens.AltManagerScreen;
 
 import static net.wurstclient.WurstClient.YUP_EVENT;
+import static net.wurstclient.WurstClient.backgroundSoundInstance;
 
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen
@@ -68,8 +70,7 @@ public abstract class TitleScreenMixin extends Screen
 			.dimensions(width / 2 + 2, realmsButton.getY(), 98, 20).build());
 
 		// play epic music
-
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(YUP_EVENT, 1f));
+		MinecraftClient.getInstance().getSoundManager().play(backgroundSoundInstance);
 	}
 	
 	@Inject(at = @At("RETURN"), method = "tick()V")

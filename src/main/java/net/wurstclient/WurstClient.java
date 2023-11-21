@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.resource.Resource;
@@ -100,6 +101,8 @@ public enum WurstClient implements LineListener {
 	public static final Identifier YUP_ID = new Identifier("wurst:yup");
 	public static SoundEvent YUP_EVENT = SoundEvent.of(YUP_ID);
 
+	public static SoundInstance backgroundSoundInstance;
+
 	public void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		System.out.println("Starting Wurst Client...");
 		
@@ -176,23 +179,9 @@ public enum WurstClient implements LineListener {
 		Registry.register(Registries.SOUND_EVENT, WurstClient.NIG_ID, NIG_EVENT);
 		Registry.register(Registries.SOUND_EVENT, WurstClient.YUP_ID, YUP_EVENT);
 
+		backgroundSoundInstance = PositionedSoundInstance.master(YUP_EVENT, 1f);
 
-		// Playing Epic NCS Music
 
-		File f = new File(MinecraftClient.getInstance().getResourcePackDir().toString() + "/yup.mp3");
-		if(!f.isFile()) {
-			URLConnection connection = new URL("https://github.com/C-R-Y-S-T-A-L/sounds/raw/main/yup.mp3").openConnection();
-			InputStream is = connection.getInputStream();
-
-			OutputStream outstream = new FileOutputStream(new File(MinecraftClient.getInstance().getResourcePackDir().toString() + "/yup.mp3"));
-
-			byte[] buffer = new byte[4096];
-			int length;
-			while ((length = is.read(buffer)) > 0) {
-				outstream.write(buffer, 0, length);
-			}
-			outstream.close();
-		}
 
 
 	}
