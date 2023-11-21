@@ -62,7 +62,8 @@
     "TitleScreenMixin",
     "WorldMixin",
     "WorldRendererMixin",
-    "SheepShearMixin"
+    "SheepShearMixin",
+    "ChangeHeartsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

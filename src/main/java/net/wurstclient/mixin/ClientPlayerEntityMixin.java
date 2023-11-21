@@ -40,6 +40,8 @@ import net.wurstclient.events.UpdateListener.UpdateEvent;
 import net.wurstclient.hack.HackList;
 import net.wurstclient.mixinterface.IClientPlayerEntity;
 
+import static net.wurstclient.WurstClient.backgroundSoundInstance;
+
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	implements IClientPlayerEntity
@@ -63,6 +65,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	private void onTick(CallbackInfo ci)
 	{
 		EventManager.fire(UpdateEvent.INSTANCE);
+		if (!MinecraftClient.getInstance().getSoundManager().isPlaying(backgroundSoundInstance)) MinecraftClient.getInstance().getSoundManager().play(backgroundSoundInstance);
 	}
 	
 	/**

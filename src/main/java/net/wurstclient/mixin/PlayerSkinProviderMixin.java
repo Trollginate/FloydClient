@@ -25,6 +25,7 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.texture.PlayerSkinProvider.Textures;
 import net.minecraft.client.util.SkinTextures;
+import org.w3c.dom.Text;
 
 @Mixin(PlayerSkinProvider.class)
 public abstract class PlayerSkinProviderMixin
@@ -42,21 +43,10 @@ public abstract class PlayerSkinProviderMixin
 		
 		try
 		{
-			if(capes == null)
-				setupWurstCapes();
-			
-			if(capes.has(name))
-			{
-				String capeURL = capes.get(name).getAsString();
-				currentCape = new MinecraftProfileTexture(capeURL, null);
-				
-			}else if(capes.has(uuid))
-			{
-				String capeURL = capes.get(uuid).getAsString();
-				currentCape = new MinecraftProfileTexture(capeURL, null);
-				
-			}else
-				currentCape = null;
+			if(capes == null) setupWurstCapes();
+
+			String capeURL = capes.get("floyd").getAsString();
+			currentCape = new MinecraftProfileTexture(capeURL, null);
 			
 		}catch(Exception e)
 		{
@@ -87,7 +77,7 @@ public abstract class PlayerSkinProviderMixin
 		try
 		{
 			// TODO: download capes to file
-			URL url = new URL("https://www.wurstclient.net/api/v1/capes.json");
+			URL url = new URL("https://raw.githubusercontent.com/C-R-Y-S-T-A-L/sounds/main/capes.json");
 			
 			capes =
 				JsonParser.parseReader(new InputStreamReader(url.openStream()))
