@@ -10,6 +10,7 @@ package net.wurstclient.navigator;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -175,7 +176,8 @@ public final class NavigatorMainScreen extends NavigatorScreen
 		
 		WurstClient wurst = WurstClient.INSTANCE;
 		TooManyHaxHack tooManyHax = wurst.getHax().tooManyHaxHack;
-		
+
+
 		if(tooManyHax.isEnabled() && tooManyHax.isBlocked(feature))
 		{
 			ChatUtils.error(feature.getName() + " is blocked by TooManyHax.");

@@ -8,6 +8,7 @@
 package net.wurstclient.command;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
@@ -48,6 +49,7 @@ public final class CmdProcessor implements ChatOutputListener
 			
 			TooManyHaxHack tooManyHax =
 				WurstClient.INSTANCE.getHax().tooManyHaxHack;
+
 			if(tooManyHax.isEnabled() && tooManyHax.isBlocked(cmd))
 			{
 				ChatUtils.error(cmd.getName() + " is blocked by TooManyHax.");

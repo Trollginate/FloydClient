@@ -7,6 +7,7 @@
  */
 package net.wurstclient.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,6 +22,9 @@ import net.wurstclient.event.EventManager;
 import net.wurstclient.events.DeathListener.DeathEvent;
 import net.wurstclient.hacks.AutoRespawnHack;
 
+import static net.wurstclient.WurstClient.backgroundSoundInstance;
+import static net.wurstclient.WurstClient.deathscreenSoundInstance;
+
 @Mixin(DeathScreen.class)
 public abstract class DeathScreenMixin extends Screen
 {
@@ -28,7 +32,7 @@ public abstract class DeathScreenMixin extends Screen
 	{
 		super(title);
 	}
-	
+
 	@Inject(at = @At("TAIL"), method = "tick()V")
 	private void onTick(CallbackInfo ci)
 	{
@@ -38,6 +42,7 @@ public abstract class DeathScreenMixin extends Screen
 	@Inject(at = @At("TAIL"), method = "init()V")
 	private void onInit(CallbackInfo ci)
 	{
+		if (!MinecraftClient.getInstance().getSoundManager().isPlaying(deathscreenSoundInstance)) MinecraftClient.getInstance().getSoundManager().play(deathscreenSoundInstance);
 		AutoRespawnHack autoRespawn =
 			WurstClient.INSTANCE.getHax().autoRespawnHack;
 		
