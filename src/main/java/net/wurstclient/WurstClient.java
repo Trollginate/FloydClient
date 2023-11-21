@@ -100,8 +100,10 @@ public enum WurstClient implements LineListener {
 	public static SoundEvent NIG_EVENT = SoundEvent.of(NIG_ID);
 	public static final Identifier YUP_ID = new Identifier("wurst:yup");
 	public static SoundEvent YUP_EVENT = SoundEvent.of(YUP_ID);
-
+	public static final Identifier CANTBREATHE_ID = new Identifier("wurst:cantbreathe");
+	public static SoundEvent CANTBREATHE_EVENT = SoundEvent.of(CANTBREATHE_ID);
 	public static SoundInstance backgroundSoundInstance;
+	public static SoundInstance deathscreenSoundInstance;
 
 	public void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		System.out.println("Starting Wurst Client...");
@@ -178,8 +180,11 @@ public enum WurstClient implements LineListener {
 
 		Registry.register(Registries.SOUND_EVENT, WurstClient.NIG_ID, NIG_EVENT);
 		Registry.register(Registries.SOUND_EVENT, WurstClient.YUP_ID, YUP_EVENT);
+		Registry.register(Registries.SOUND_EVENT, WurstClient.CANTBREATHE_ID, CANTBREATHE_EVENT);
 
-		backgroundSoundInstance = PositionedSoundInstance.master(YUP_EVENT, 1f);
+		deathscreenSoundInstance = PositionedSoundInstance.master(CANTBREATHE_EVENT, 1f);
+
+		backgroundSoundInstance = PositionedSoundInstance.master(YUP_EVENT, 1f, 5);
 
 
 

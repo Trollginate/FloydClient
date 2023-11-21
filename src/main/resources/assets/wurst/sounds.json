@@ -8,5 +8,10 @@
     "sounds": [
       "wurst:yup"
     ]
+  },
+  "cantbreathe": {
+    "sounds": [
+      "wurst:cantbreathe"
+    ]
   }
 }

@@ -7,6 +7,7 @@
  */
 package net.wurstclient.mixin;
 
+import net.minecraft.sound.MusicSound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,6 +21,7 @@ import net.wurstclient.hacks.NoWeatherHack;
 @Mixin(World.class)
 public abstract class WorldMixin implements WorldAccess, AutoCloseable
 {
+
 	@Inject(at = @At("HEAD"),
 		method = "getRainGradient(F)F",
 		cancellable = true)
@@ -40,7 +42,8 @@ public abstract class WorldMixin implements WorldAccess, AutoCloseable
 		
 		return getDimension().getSkyAngle(timeOfDay);
 	}
-	
+
+
 	@Override
 	public int getMoonPhase()
 	{
